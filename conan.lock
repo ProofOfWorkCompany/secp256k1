@@ -1,0 +1,57 @@
+{
+ "graph_lock": {
+  "nodes": {
+   "0": {
+    "ref": "SECP256K1/0.1",
+    "options": "fPIC=True\nshared=False\nlibtool:fPIC=True\nlibtool:shared=False",
+    "requires": [
+     "1",
+     "3",
+     "4"
+    ],
+    "path": "conanfile.py",
+    "context": "host"
+   },
+   "1": {
+    "ref": "autoconf/2.71",
+    "options": "",
+    "package_id": "cc471ed355602ffa7007968c83aa4e7e648a38b5",
+    "prev": "0",
+    "requires": [
+     "2"
+    ],
+    "context": "host"
+   },
+   "2": {
+    "ref": "m4/1.4.18",
+    "options": "",
+    "package_id": "801752c0480319b8e090188c566245a78e9abcf4",
+    "prev": "0",
+    "context": "host"
+   },
+   "3": {
+    "ref": "automake/1.16.3",
+    "options": "",
+    "package_id": "3c28ba69276b46fd46e9c2060ba991d725ccab43",
+    "prev": "0",
+    "requires": [
+     "1"
+    ],
+    "context": "host"
+   },
+   "4": {
+    "ref": "libtool/2.4.6",
+    "options": "fPIC=True\nshared=False",
+    "package_id": "f82f59608a22017ca5ceea2114611456d4373a12",
+    "prev": "0",
+    "requires": [
+     "3"
+    ],
+    "context": "host"
+   }
+  },
+  "revisions_enabled": false
+ },
+ "version": "0.4",
+ "profile_host": "[settings]\narch=x86_64\narch_build=x86_64\nbuild_type=Release\ncompiler=apple-clang\ncompiler.libcxx=libc++\ncompiler.version=12.0\nos=Macos\nos_build=Macos\n[options]\n[build_requires]\n[env]\n"
+}
