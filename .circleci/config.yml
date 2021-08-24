@@ -47,9 +47,9 @@ workflows:
   build-and-release:
     jobs:
       - build:
-        filters:
-          tags:
-            only: /.*/
+          filters:
+            tags:
+              only: /^v.*/
       - release:
           requires:
             - build
@@ -57,4 +57,4 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              ignore: test
+              only: /^v.*/
