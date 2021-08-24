@@ -1,5 +1,9 @@
 version: 2.1
 
+defaults: &defaults
+  macos:
+      xcode: 12.3.0
+
 commands:
   install_build_tools:
     steps:
@@ -22,20 +26,34 @@ commands:
           command: |
             conan remote add proofofwork https://pow.jfrog.io/artifactory/api/conan/proofofwork
             conan user -p $CONAN_PASSWORD -r proofofwork $CONAN_USERNAME
-            conan upload SECP256K1/0.1@proofofwork/stable --all -r proofofwork --confirm
+            conan upload SECP256K1/${CIRCLE_TAG:2}@proofofwork/stable --all -r proofofwork --confirm
 
 jobs:
 
   build: 
-    macos:
-      xcode: 12.3.0
+    <<: *defaults
     steps:
       - install_build_tools
       - checkout
       - build_recipe
+
+  release:
+    <<: *defaults
+    steps:
       - upload_conan_package
+
           
 workflows:
-  test_build:
+  build-and-release:
     jobs:
       - build
+      - release:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+          context:
+            - Release
