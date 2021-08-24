@@ -28,7 +28,7 @@ jobs:
 
   build: 
     macos:
-      xcode: 11.3.0
+      xcode: 12.3.0
     steps:
       - install_build_tools
       - checkout
