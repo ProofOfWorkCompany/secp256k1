@@ -20,7 +20,7 @@ commands:
       - run:
           name: Upload conan package
           command: |
-            conan remote add proofofwork https://proofofwork.jfrog.io/artifactory/api/conan/proofofwork
+            conan remote add proofofwork https://pow.jfrog.io/artifactory/api/conan/proofofwork
             conan user -p $CONAN_PASSWORD -r proofofwork $CONAN_USERNAME
             conan upload SECP256K1/0.1 -r proofofwork
 
