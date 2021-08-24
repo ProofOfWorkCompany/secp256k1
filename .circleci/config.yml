@@ -13,14 +13,16 @@ commands:
           name: Build conan recipe
           command: |
             conan create .
+  upload_conan_package:
+    steps:
+      - run:
+          name: Upload conan package
+          command: |
+            conan remote add proofofwork https://proofofwork.jfrog.io/artifactory/api/conan/proofofwork
+            conan user -p $CONAN_PASSWORD -r proofofwork $CONAN_USERNAME
+            conan upload SECP256K1/0.1 -r proofofwork
 
 jobs:
-  test:
-    macos:
-      xcode: 11.3.0
-    steps:
-      - install_build_tools
-      - checkout
 
   build: 
     macos:
@@ -29,17 +31,9 @@ jobs:
       - install_build_tools
       - checkout
       - build_recipe
-      - run:
-          name: Compress app for storage
-          command: zip -r app.zip build/Release/circleci-demo-macos.app
-      - store_artifacts:
-          path: app.zip
-          destination: app
+      - upload_conan_package
           
 workflows:
   test_build:
     jobs:
-      - test
-      - build:
-          requires:
-            - test
+      - build
