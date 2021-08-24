@@ -1,7 +1,7 @@
 version: 2.1
 
 commands:
-  install_conan:
+  install_deps:
     steps:
       - run:
           name: Install conan
@@ -19,14 +19,14 @@ jobs:
     macos:
       xcode: 11.3.0
     steps:
-      - install_conan
+      - install_deps
       - checkout
 
   build: 
     macos:
       xcode: 11.3.0
     steps:
-      - install_conan
+      - install_deps
       - checkout
       - build_recipe
       - run:
