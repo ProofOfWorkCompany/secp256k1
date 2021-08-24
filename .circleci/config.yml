@@ -46,8 +46,17 @@ jobs:
 workflows:
   build-and-release:
     jobs:
-      - build
+      - build:
+        filters:
+          tags:
+            only: /^v.*/
       - release:
           requires:
             - build
-
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+          context:
+            - Release
