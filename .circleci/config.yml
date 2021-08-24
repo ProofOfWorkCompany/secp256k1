@@ -4,9 +4,9 @@ commands:
   install_conan:
     steps:
       - run:
-        name: Install conan
-        command: |
-          brew install conan
+          name: Install conan
+          command: |
+            brew install conan
 
 jobs:
   test:
