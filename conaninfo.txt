@@ -1,0 +1,41 @@
+[settings]
+    arch=x86_64
+    build_type=Release
+    compiler=apple-clang
+    compiler.libcxx=libc++
+    compiler.version=12.0
+    os=Macos
+
+[requires]
+    autoconf/2.Y.Z
+    automake/1.Y.Z
+    libtool/2.Y.Z
+
+[options]
+    fPIC=True
+    shared=False
+
+[full_settings]
+    arch=x86_64
+    build_type=Release
+    compiler=apple-clang
+    compiler.libcxx=libc++
+    compiler.version=12.0
+    os=Macos
+
+[full_requires]
+    autoconf/2.71:cc471ed355602ffa7007968c83aa4e7e648a38b5
+    automake/1.16.3:3c28ba69276b46fd46e9c2060ba991d725ccab43
+    libtool/2.4.6:f82f59608a22017ca5ceea2114611456d4373a12
+
+[full_options]
+    fPIC=True
+    shared=False
+    libtool:fPIC=True
+    libtool:shared=False
+
+[recipe_hash]
+
+
+[env]
+

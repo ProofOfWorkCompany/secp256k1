@@ -1,9 +1,19 @@
 libsecp256k1
 ============
 
-[![Build Status](https://api.cirrus-ci.com/github/bitcoin-core/secp256k1.svg?branch=master)](https://cirrus-ci.com/github/bitcoin-core/secp256k1)
+[![Build Status](https://circleci.com/gh/ProofOfWorkCompany/secp256k1/tree/master.svg?style=svg)](https://circleci.com/gh/ProofOfWorkCompany/secp256k1/tree/master)
 
 Optimized C library for ECDSA signatures and secret/public key operations on curve secp256k1.
+
+## Instructions to build and upload a conan package from the recipe
+
+    $ conan create . proofofwork/stable
+    $ conan remote add proofofwork https://pow.jfrog.io/artifactory/api/conan/proofofwork
+    $ conan user -p PASSWORD -r proofofwork USERNAME
+    $ conan upload data/0.1@proofofwork/stable --all -r proofofwork --confirm
+
+
+
 
 This library is intended to be the highest quality publicly available library for cryptography on the secp256k1 curve. However, the primary focus of its development has been for usage in the Bitcoin system and usage unlike Bitcoin's may be less well tested, verified, or suffer from a less well thought out interface. Correct usage requires some care and consideration that the library is fit for your application's purpose.
 
