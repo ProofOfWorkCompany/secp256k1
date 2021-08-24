@@ -7,12 +7,14 @@ commands:
           name: Install conan and build tools
           command: |
             brew install conan cmake
+
   build_recipe:
     steps:
       - run:
           name: Build conan recipe
           command: |
-            conan create .
+            conan create . proofofwork/stable
+
   upload_conan_package:
     steps:
       - run:
