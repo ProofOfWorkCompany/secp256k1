@@ -58,5 +58,3 @@ workflows:
               ignore: /.*/
             tags:
               only: /^v.*/
-          context:
-            - Release
