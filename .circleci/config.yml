@@ -1,12 +1,12 @@
 version: 2.1
 
 commands:
-  install_deps:
+  install_build_tools:
     steps:
       - run:
-          name: Install conan
+          name: Install conan and build tools
           command: |
-            brew install conan
+            brew install conan cmake
   build_recipe:
     steps:
       - run:
@@ -19,14 +19,14 @@ jobs:
     macos:
       xcode: 11.3.0
     steps:
-      - install_deps
+      - install_build_tools
       - checkout
 
   build: 
     macos:
       xcode: 11.3.0
     steps:
-      - install_deps
+      - install_build_tools
       - checkout
       - build_recipe
       - run:
