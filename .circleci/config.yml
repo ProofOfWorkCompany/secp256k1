@@ -26,20 +26,25 @@ commands:
           command: |
             conan remote add proofofwork https://pow.jfrog.io/artifactory/api/conan/proofofwork
             conan user -p $CONAN_PASSWORD -r proofofwork $CONAN_USERNAME
-            conan upload SECP256K1/${CIRCLE_TAG:2}@proofofwork/stable --all -r proofofwork --confirm
+            conan upload SECP256K1/${CIRCLE_TAG:1}@proofofwork/stable --all -r proofofwork --confirm
+
+  build:
+    steps:
+      - install_build_tools
+      - checkout
+      - build_recipe
 
 jobs:
 
   build: 
     <<: *defaults
     steps:
-      - install_build_tools
-      - checkout
-      - build_recipe
+      - build
 
   release:
     <<: *defaults
     steps:
+      - build
       - upload_conan_package
 
           
