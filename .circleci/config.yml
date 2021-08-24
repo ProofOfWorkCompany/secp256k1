@@ -7,6 +7,12 @@ commands:
           name: Install conan
           command: |
             brew install conan
+  build_recipe:
+    steps:
+      - run:
+          name: Build conan recipe
+          command: |
+            conan create .
 
 jobs:
   test:
@@ -22,9 +28,7 @@ jobs:
     steps:
       - install_conan
       - checkout
-      - run:
-          name: Build Application
-          command: xcodebuild
+      - build_recipe
       - run:
           name: Compress app for storage
           command: zip -r app.zip build/Release/circleci-demo-macos.app
