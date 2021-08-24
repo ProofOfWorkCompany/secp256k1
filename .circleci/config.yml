@@ -1,0 +1,41 @@
+version: 2.1
+
+commands:
+  install_conan:
+    steps:
+      - run:
+        name: Install conan
+        command: |
+          brew install conan
+
+jobs:
+  test:
+    macos:
+      xcode: 11.3.0
+    steps:
+      - install_conan
+      - checkout
+
+  build: 
+    macos:
+      xcode: 11.3.0
+    steps:
+      - install_conan
+      - checkout
+      - run:
+          name: Build Application
+          command: xcodebuild
+      - run:
+          name: Compress app for storage
+          command: zip -r app.zip build/Release/circleci-demo-macos.app
+      - store_artifacts:
+          path: app.zip
+          destination: app
+          
+workflows:
+  test_build:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
