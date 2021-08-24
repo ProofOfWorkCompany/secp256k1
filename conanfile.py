@@ -1,4 +1,5 @@
 from conans import ConanFile, CMake
+from os import environ
 
 
 class SECP256K1Conan(ConanFile):
@@ -15,6 +16,10 @@ class SECP256K1Conan(ConanFile):
     generators = "cmake"
     exports_sources = "*"
     requires = "autoconf/2.71", "automake/1.16.3", "libtool/2.4.6"
+
+    def set_version(self):
+        if "CIRCLE_TAG" in environ:
+            self.version = environ.get("CIRCLE_TAG")[1:]
 
     def config_options(self):
         if self.settings.os == "Windows":
