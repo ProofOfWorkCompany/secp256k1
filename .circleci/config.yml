@@ -13,11 +13,15 @@ commands:
             brew install conan cmake
 
   build_recipe:
+    parameters:
+      cliParams:
+        default: ""
+        type: string
     steps:
       - run:
           name: Build conan recipe
           command: |
-            conan create . proofofwork/stable
+            conan create . proofofwork/stable << parameters.cliParams >>
 
   upload_conan_package:
     steps:
@@ -33,6 +37,8 @@ commands:
       - install_build_tools
       - checkout
       - build_recipe
+      - build_recipe:
+          cliParams: "-o SECP256K1:shared=True"
 
 jobs:
 
