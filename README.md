@@ -10,7 +10,7 @@ Optimized C library for ECDSA signatures and secret/public key operations on cur
     $ conan create . proofofwork/stable
     $ conan remote add proofofwork https://pow.jfrog.io/artifactory/api/conan/proofofwork
     $ conan user -p PASSWORD -r proofofwork USERNAME
-    $ conan upload data/0.1@proofofwork/stable --all -r proofofwork --confirm
+    $ conan upload SECP256K1/0.1@proofofwork/stable --all -r proofofwork --confirm
 
 
 
