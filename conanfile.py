@@ -28,7 +28,7 @@ class SECP256K1Conan(ConanFile):
     def build(self):
         self.run("./autogen.sh")
         self.run("./configure --disable-debug --disable-dependency-tracking --disable-silent-rules --prefix=$(pwd)")
-        self.run("make install")
+        self.run("make")
 
     def package(self):
         self.copy("*.h", dst="include", src="include")
