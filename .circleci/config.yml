@@ -1,11 +1,15 @@
 version: 2.1
 
-defaults: &defaults
+macosBuildDefaults: &macosBuildDefaults
   macos:
       xcode: 12.3.0
 
+linuxBuildDefaults: &linuxBuildDefaults
+  docker:
+    - image: conanio/gcc9:latest
+
 commands:
-  install_build_tools:
+  install_macos_build_tools:
     steps:
       - run:
           name: Install conan and build tools
@@ -32,38 +36,63 @@ commands:
             conan user -p $CONAN_PASSWORD -r proofofwork $CONAN_USERNAME
             conan upload SECP256K1/${CIRCLE_TAG:1}@proofofwork/stable --all -r proofofwork --confirm
 
-  build:
+  build_macos:
     steps:
-      - install_build_tools
+      - install_macos_build_tools
       - checkout
       - build_recipe
-      - build_recipe:
-          cliParams: "-o SECP256K1:shared=True"
+
+  build_linux:
+    steps:
+      - checkout
+      - build_recipe
 
 jobs:
 
-  build: 
-    <<: *defaults
+  build_macos:
+    <<: *macosBuildDefaults
     steps:
-      - build
+      - build_macos
 
-  release:
-    <<: *defaults
+  release_macos:
+    <<: *macosBuildDefaults
     steps:
-      - build
+      - build_macos
       - upload_conan_package
 
-          
+  build_linux:
+    <<: *linuxBuildDefaults
+    steps:
+      - build_linux
+
+  release_linux:
+    <<: *linuxBuildDefaults
+    steps:
+      - build_linux
+      - upload_conan_package
+
 workflows:
   build-and-release:
     jobs:
-      - build:
+      - build_linux:
           filters:
             tags:
               only: /^v.*/
-      - release:
+      - build_macos:
+          filters:
+            tags:
+              only: /^v.*/
+      - release_macos:
           requires:
-            - build
+            - build_macos
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+      - release_linux:
+          requires:
+            - build_linux
           filters:
             branches:
               ignore: /.*/
