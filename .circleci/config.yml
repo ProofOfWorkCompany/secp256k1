@@ -41,8 +41,6 @@ commands:
       - install_macos_build_tools
       - checkout
       - build_recipe
-      - build_recipe:
-          cliParams: "-o SECP256K1:shared=True"
 
   build_linux:
     steps:
