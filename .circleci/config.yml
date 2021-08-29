@@ -56,15 +56,21 @@ jobs:
     steps:
       - build_macos
 
+  release_macos:
+    <<: *macosBuildDefaults
+    steps:
+      - build_macos
+      - upload_conan_package
+
   build_linux:
     <<: *linuxBuildDefaults
     steps:
       - build_linux
 
-  release:
-    <<: *macosBuildDefaults
+  release_linux:
+    <<: *linuxBuildDefaults
     steps:
-      - build_macos
+      - build_linux
       - upload_conan_package
 
 workflows:
@@ -78,9 +84,17 @@ workflows:
           filters:
             tags:
               only: /^v.*/
-      - release:
+      - release_macos:
           requires:
             - build_macos
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+      - release_linux:
+          requires:
+            - build_linux
           filters:
             branches:
               ignore: /.*/
