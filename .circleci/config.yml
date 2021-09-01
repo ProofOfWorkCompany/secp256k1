@@ -46,6 +46,8 @@ commands:
     steps:
       - checkout
       - build_recipe
+      - build_recipe:
+          cliParams: "-s compiler.libcxx=libstdc++11"
 
 jobs:
 
