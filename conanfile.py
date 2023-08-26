@@ -1,4 +1,4 @@
-from conans import ConanFile, CMake
+from conan import ConanFile
 from os import environ
 
 
@@ -13,9 +13,9 @@ class SECP256K1Conan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
-    generators = "cmake"
+    generators = "CMakeDeps", "CMakeToolchain"
     exports_sources = "*"
-    requires = "autoconf/2.71", "automake/1.16.3", "libtool/2.4.6"
+    requires = "autoconf/2.71", "automake/1.16.5", "libtool/2.4.6"
 
     def set_version(self):
         if "CIRCLE_TAG" in environ:
